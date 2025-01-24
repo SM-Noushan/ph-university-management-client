@@ -74,7 +74,7 @@ const adminSidebarItems = adminPaths.reduce((acc: TSidebarItem[], item) => {
     acc.push({
       key: item.name,
       label: (
-        <NavLink to={`${item.index || `admin/${item.path}`}`}>
+        <NavLink to={`${item.index ? "" : `admin/${item.path}`}`}>
           {item.name}
         </NavLink>
       ),
