@@ -2,39 +2,12 @@ import React from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout, Menu, Button, MenuProps } from "antd";
 import { Outlet } from "react-router-dom";
+import { adminSidebarItems } from "../../routes";
+import { Header } from "antd/es/layout/layout";
 
 const { Content, Footer, Sider } = Layout;
 
-// const items = [
-//   UserOutlined,
-//   VideoCameraOutlined,
-//   UploadOutlined,
-//   UserOutlined,
-// ].map((icon, index) => ({
-//   key: String(index + 1),
-//   icon: React.createElement(icon),
-//   label: `nav ${index + 1}`,
-// }));
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    label: "Profile",
-  },
-  {
-    key: "2",
-    label: "User",
-    children: [
-      {
-        key: "2-1",
-        label: "User List",
-      },
-      {
-        key: "2-2",
-        label: "User Add",
-      },
-    ],
-  },
-];
+const items: MenuProps["items"] = adminSidebarItems;
 
 const MainLayout: React.FC = () => {
   const [collapsed, setCollapsed] = React.useState(false);
@@ -49,19 +22,15 @@ const MainLayout: React.FC = () => {
         trigger={null}
         onBreakpoint={(broken) => {
           setShowTrigger(broken);
-          //   console.log(broken);
         }}
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        onCollapse={(collapsed, _type) => {
+        onCollapse={(collapsed) => {
           setCollapsed(collapsed);
-          //   console.log(collapsed, type);
         }}
         zeroWidthTriggerStyle={{ top: "64px", position: "absolute", zIndex: 1 }}
       >
         <div
           style={{
             color: "white",
-
             height: "4rem",
             display: "flex",
             alignItems: "center",
@@ -80,7 +49,23 @@ const MainLayout: React.FC = () => {
         />
       </Sider>
       <Layout>
-        {/* <Header style={{ padding: 0 }} /> */}
+        <Header
+          style={{
+            padding: 0,
+          }}
+        >
+          <Button
+            variant="filled"
+            ghost
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              margin: "18px 18px 0 0",
+              float: "right",
+            }}
+          >
+            Logout
+          </Button>
+        </Header>
         <Button
           type="primary"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
