@@ -1,3 +1,3 @@
 export default function CreateStudent() {
-  return <div>CreateStudent</div>;
+  return <div>CreateStudent Component</div>;
 }
