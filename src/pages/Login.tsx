@@ -14,7 +14,9 @@ const Login: React.FC = () => {
     try {
       const res = await login(values).unwrap();
       const user = verifyToken(res.data.accessToken);
-      dispatch(setUser({ user, token: res.data.accessToken }));
+      const userInfo = { user, token: res.data.accessToken };
+      sessionStorage.setItem("auth", JSON.stringify(userInfo));
+      dispatch(setUser(userInfo));
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   };

@@ -1,6 +1,7 @@
 import { baseApi } from "./api/baseApi";
 import { authSlice } from "./features/auth/authSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { loadStateFromSessionStorage } from "../utils";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 
 // `combineSlices` automatically combines the reducers using
@@ -24,7 +25,7 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
   return store;
 };
 
-export const store = makeStore();
+export const store = makeStore(loadStateFromSessionStorage());
 
 // Infer the type of `store`
 export type AppStore = typeof store;
