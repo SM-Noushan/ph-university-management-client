@@ -1,18 +1,6 @@
-import React from "react";
+import { TRoute, TUserPath } from "../types";
 
-type TRoute = {
-  element: React.ReactNode;
-} & ({ path: string } | { index: true });
-
-type TUserPath = {
-  name: string;
-  path?: string;
-  index?: boolean;
-  element?: React.ReactNode;
-  children?: TUserPath[];
-};
-
-const routeGenerator = (items: TUserPath[]) =>
+export const routeGenerator = (items: TUserPath[]) =>
   items.reduce((acc: TRoute[], item) => {
     if ((item.path || item.index) && item.element)
       acc.push({
@@ -27,5 +15,3 @@ const routeGenerator = (items: TUserPath[]) =>
 
     return acc;
   }, []);
-
-export { routeGenerator };
