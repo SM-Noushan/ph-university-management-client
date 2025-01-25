@@ -1,14 +1,17 @@
 import React from "react";
 import { verifyToken } from "../utils";
 import { useAppDispatch } from "../app/hooks";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Flex } from "antd";
 import { setUser } from "../app/features/auth/authSlice";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useLoginMutation } from "../app/features/auth/authApi";
 
 const Login: React.FC = () => {
-  const [login, { error }] = useLoginMutation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [login, { error }] = useLoginMutation();
+
   const onFinish = async (values: unknown) => {
     // console.log("Received values of form: ", values);
     try {
@@ -17,6 +20,8 @@ const Login: React.FC = () => {
       const userInfo = { user, token: res.data.accessToken };
       sessionStorage.setItem("auth", JSON.stringify(userInfo));
       dispatch(setUser(userInfo));
+
+      navigate(user.role === "student" ? "/" : `/${user.role}`);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   };

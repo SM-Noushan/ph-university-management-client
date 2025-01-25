@@ -3,13 +3,21 @@ import Sidebar from "./Sidebar";
 import { Layout, Button } from "antd";
 import { Outlet } from "react-router-dom";
 import { Header } from "antd/es/layout/layout";
+import { useAppDispatch } from "../../app/hooks";
+import { logout } from "../../app/features/auth/authSlice";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 const { Content, Footer } = Layout;
 
 const MainLayout: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [collapsed, setCollapsed] = React.useState(false);
   const [showTrigger, setShowTrigger] = React.useState(false);
+
+  const handleLogOut = () => {
+    sessionStorage.removeItem("auth");
+    dispatch(logout());
+  };
 
   return (
     <Layout style={{ height: "100vh" }}>
@@ -39,7 +47,7 @@ const MainLayout: React.FC = () => {
               backgroundColor: "#001529",
             }}
           />
-          <Button variant="filled" ghost>
+          <Button variant="filled" ghost onClick={handleLogOut}>
             Logout
           </Button>
         </Header>

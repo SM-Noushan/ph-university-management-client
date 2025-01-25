@@ -24,6 +24,15 @@ export const authSlice = createSlice({
       state.token = null;
     },
   },
+  // Selectors here. These selectors receive the slice
+  // state as their first argument.
+  selectors: {
+    currentUser: ({ user }) => user,
+    currentToken: ({ token }) => token,
+  },
 });
+
+// Selectors returned by `slice.selectors` take the root state as their first argument.
+export const { currentUser, currentToken } = authSlice.selectors;
 
 export const { setUser, logout } = authSlice.actions;
