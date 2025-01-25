@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "sonner";
 import Sidebar from "./Sidebar";
 import { Layout, Button } from "antd";
 import { Outlet } from "react-router-dom";
@@ -17,6 +18,7 @@ const MainLayout: React.FC = () => {
   const handleLogOut = () => {
     sessionStorage.removeItem("auth");
     dispatch(logout());
+    toast.success("Logout successfully");
   };
 
   return (
