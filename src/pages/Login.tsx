@@ -1,9 +1,10 @@
 import React from "react";
 import { toast } from "sonner";
+import { Button, Flex } from "antd";
 import { verifyToken } from "../utils";
 import { useAppDispatch } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
-import { Button, Form, Input, Flex } from "antd";
+import { PHForm, PHInput } from "../components/form";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { setUser, TUser } from "../app/features/auth/authSlice";
 import { useLoginMutation } from "../app/features/auth/authApi";
@@ -11,11 +12,11 @@ import { useLoginMutation } from "../app/features/auth/authApi";
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [login, { error }] = useLoginMutation();
+  const [login, { error, isLoading }] = useLoginMutation();
 
-  const onFinish = async (values: unknown) => {
-    const toastId = toast.loading("Logging in...");
+  const onSubmit = async (values: unknown) => {
     // console.log("Received values of form: ", values);
+    const toastId = toast.loading("Logging in...");
     try {
       const res = await login(values).unwrap();
       const user = verifyToken(res.data.accessToken) as TUser;
@@ -24,62 +25,46 @@ const Login: React.FC = () => {
       dispatch(setUser(userInfo));
       toast.success("Login successfully", { id: toastId });
       navigate(user.role === "student" ? "/" : `/${user.role}`);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       toast.error("Login failed", { id: toastId });
     }
   };
   return (
     <Flex align="center" justify="center" style={{ height: "100vh" }}>
-      <Form
-        name="login"
-        initialValues={{ id: "A-0001", password: "admin12" }}
-        style={{ maxWidth: 360 }}
-        onFinish={onFinish}
+      <PHForm
+        onSubmit={onSubmit}
+        defaultValues={{ id: "A-0001", password: "admin12" }}
       >
-        <Form.Item
+        <PHInput
+          type="text"
           name="id"
-          rules={[{ required: true, message: "Please input your Username!" }]}
-        >
-          <Input
-            prefix={<UserOutlined />}
-            placeholder="Username"
-            value={"A-0001"}
-          />
-        </Form.Item>
-        <Form.Item
+          label="User ID"
+          prefix={<UserOutlined />}
+          validationRules={{
+            required: "Username is required",
+            minLength: { value: 4, message: "Must be at least 4 characters" },
+          }}
+        />
+        <PHInput
+          type="password"
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
-        >
-          <Input
-            prefix={<LockOutlined />}
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Item>
-        {/* <Form.Item>
-            <Flex justify="end">
-              <a href="">Forgot password</a>
-            </Flex>
-          </Form.Item> */}
+          label="Password"
+          prefix={<LockOutlined />}
+          validationRules={{
+            required: "Password is required",
+            minLength: { value: 6, message: "Must be at least 6 characters" },
+          }}
+        />
 
-        <Form.Item>
-          <Button block type="primary" htmlType="submit">
-            Log in
-          </Button>
-          {error && (
-            <Form.Item>
-              <Flex justify="center" style={{ color: "red" }}>
-                {"data" in error && error.data
-                  ? (error.data as { message: string }).message
-                  : "message" in error
-                  ? error.message
-                  : "An unknown error occurred"}
-              </Flex>
-            </Form.Item>
-          )}
-        </Form.Item>
-      </Form>
+        <Button block type="primary" htmlType="submit" disabled={isLoading}>
+          Log in
+        </Button>
+        {error && (
+          <Flex justify="center" style={{ color: "red", marginTop: "10px" }}>
+            {(error as { data: { message: string } })?.data.message}
+          </Flex>
+        )}
+      </PHForm>
     </Flex>
   );
 };
