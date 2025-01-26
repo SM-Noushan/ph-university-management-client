@@ -44,8 +44,8 @@ const MainLayout: React.FC = () => {
             style={{
               display: showTrigger ? "block" : "none",
               fontSize: "16px",
-              width: 36,
-              height: 36,
+              width: 32,
+              height: 32,
               backgroundColor: "#001529",
             }}
           />

@@ -58,17 +58,21 @@ const Sidebar: React.FC<SidebarProps> = ({
         setCollapsed(collapsed);
       }}
       zeroWidthTriggerStyle={{ top: "64px", position: "absolute", zIndex: 1 }}
+      style={{ overflowY: "auto", scrollbarWidth: "none" }}
     >
       <h1
         style={{
+          position: "fixed",
           color: "white",
           height: "4rem",
-          minWidth: "120px",
+          width: "200px",
           display: "flex",
           alignItems: "center",
-          marginLeft: "1.6rem",
+          paddingLeft: showTrigger ? "2.6rem" : "1.6rem",
           fontSize: showTrigger ? "1rem" : "1.6rem",
           fontWeight: "bold",
+          backgroundColor: "#001529",
+          zIndex: 1,
         }}
       >
         PH University
@@ -79,6 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         selectedKeys={[pathname]}
         // defaultSelectedKeys={[pathname]}
         items={sidebarItems}
+        style={{ marginTop: "4.5em" }}
       />
     </Sider>
   );

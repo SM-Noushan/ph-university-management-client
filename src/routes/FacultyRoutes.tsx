@@ -1,10 +1,9 @@
 import { USER_ROLE } from "../constants";
-import CreateAdmin from "../pages/admin/CreateAdmin";
-import CreateFaculty from "../pages/admin/CreateFaculty";
-import CreateStudent from "../pages/admin/CreateStudent";
-import AdminDashboard from "../pages/admin/AdminDashboard";
 import { routeGenerator, sidebarItemsGenerator } from "../utils";
-import AcademicSemester from "../pages/admin/academicManagement/AcademicSemester";
+import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
+import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
+import CreateStudent from "../pages/admin/userManagement/CreateStudent";
+import AdminDashboard from "../pages/admin/AdminDashboard";
 
 const facultyPaths = [
   {
@@ -39,7 +38,7 @@ const facultyPaths = [
       {
         name: "Academic Semester",
         path: "academic-semester",
-        element: <AcademicSemester />,
+        element: <AdminDashboard />,
       },
     ],
   },

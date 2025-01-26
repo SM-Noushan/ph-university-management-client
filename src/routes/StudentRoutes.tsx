@@ -1,7 +1,6 @@
 import { USER_ROLE } from "../constants";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import { routeGenerator, sidebarItemsGenerator } from "../utils";
-import AcademicSemester from "../pages/admin/academicManagement/AcademicSemester";
 
 const studentPaths = [
   {
@@ -16,7 +15,7 @@ const studentPaths = [
       {
         name: "Academic Course",
         path: "academic-course",
-        element: <AcademicSemester />,
+        element: <AdminDashboard />,
       },
     ],
   },
