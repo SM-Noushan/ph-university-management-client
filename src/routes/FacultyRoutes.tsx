@@ -1,3 +1,4 @@
+import { USER_ROLE } from "../constants";
 import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
 import CreateStudent from "../pages/admin/CreateStudent";
@@ -44,7 +45,7 @@ const facultyPaths = [
   },
 ];
 
-const facultyRoutes = routeGenerator(facultyPaths);
+const facultyRoutes = routeGenerator(facultyPaths, USER_ROLE.faculty);
 
 const facultySidebarItems = sidebarItemsGenerator(facultyPaths, "/faculty");
 

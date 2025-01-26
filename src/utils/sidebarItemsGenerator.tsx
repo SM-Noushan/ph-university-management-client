@@ -15,7 +15,7 @@ export const sidebarItemsGenerator = (items: TUserPath[], role: string = "") =>
 
     if (item.path || item.index)
       acc.push({
-        key: `${item.index ? role : `${role.slice(1)}/${item.path}`}`,
+        key: `${item.index ? role || "/" : `${role.slice(1)}/${item.path}`}`,
         label: (
           <NavLink to={`${item.index ? "" : `${role.slice(1)}/${item.path}`}`}>
             {item.name}

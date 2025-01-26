@@ -1,3 +1,4 @@
+import { USER_ROLE } from "../constants";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import { routeGenerator, sidebarItemsGenerator } from "../utils";
 import AcademicSemester from "../pages/admin/academicManagement/AcademicSemester";
@@ -21,7 +22,7 @@ const studentPaths = [
   },
 ];
 
-const studentRoutes = routeGenerator(studentPaths);
+const studentRoutes = routeGenerator(studentPaths, USER_ROLE.student);
 
 const studentSidebarItems = sidebarItemsGenerator(studentPaths);
 

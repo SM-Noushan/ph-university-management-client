@@ -3,6 +3,7 @@ import {
   facultySidebarItems,
   studentSidebarItems,
 } from "../../routes";
+import { USER_ROLE } from "../../constants";
 import { Layout, Menu, MenuProps } from "antd";
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
@@ -16,13 +17,6 @@ interface SidebarProps {
 }
 
 const { Sider } = Layout;
-
-const USER_ROLE = {
-  student: "student",
-  faculty: "faculty",
-  admin: "admin",
-  superAdmin: "superAdmin",
-} as const;
 
 const Sidebar: React.FC<SidebarProps> = ({
   collapsed,
@@ -82,7 +76,8 @@ const Sidebar: React.FC<SidebarProps> = ({
       <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={[pathname]}
+        selectedKeys={[pathname]}
+        // defaultSelectedKeys={[pathname]}
         items={sidebarItems}
       />
     </Sider>

@@ -1,3 +1,4 @@
+import { USER_ROLE } from "../constants";
 import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
 import CreateStudent from "../pages/admin/CreateStudent";
@@ -44,7 +45,7 @@ const adminPaths = [
   },
 ];
 
-const adminRoutes = routeGenerator(adminPaths);
+const adminRoutes = routeGenerator(adminPaths, USER_ROLE.admin);
 
 const adminSidebarItems = sidebarItemsGenerator(adminPaths, "/admin");
 
