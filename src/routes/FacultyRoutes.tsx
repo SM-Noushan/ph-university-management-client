@@ -5,7 +5,7 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import { routeGenerator, sidebarItemsGenerator } from "../utils";
 import AcademicSemester from "../pages/admin/academicManagement/AcademicSemester";
 
-const adminPaths = [
+const facultyPaths = [
   {
     name: "Dashboard",
     path: "",
@@ -44,8 +44,8 @@ const adminPaths = [
   },
 ];
 
-const adminRoutes = routeGenerator(adminPaths);
+const facultyRoutes = routeGenerator(facultyPaths);
 
-const adminSidebarItems = sidebarItemsGenerator(adminPaths, "/admin");
+const facultySidebarItems = sidebarItemsGenerator(facultyPaths, "/faculty");
 
-export { adminPaths, adminRoutes, adminSidebarItems };
+export { facultyPaths, facultyRoutes, facultySidebarItems };

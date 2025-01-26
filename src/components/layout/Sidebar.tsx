@@ -1,7 +1,12 @@
-// import React from "react";
+import {
+  adminSidebarItems,
+  facultySidebarItems,
+  studentSidebarItems,
+} from "../../routes";
 import { Layout, Menu, MenuProps } from "antd";
 import { useLocation } from "react-router-dom";
-import { adminSidebarItems } from "../../routes";
+import { useAppSelector } from "../../app/hooks";
+import { selectCurrentUser } from "../../app/features/auth/authSlice";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -12,7 +17,12 @@ interface SidebarProps {
 
 const { Sider } = Layout;
 
-const items: MenuProps["items"] = adminSidebarItems;
+const USER_ROLE = {
+  student: "student",
+  faculty: "faculty",
+  admin: "admin",
+  superAdmin: "superAdmin",
+} as const;
 
 const Sidebar: React.FC<SidebarProps> = ({
   collapsed,
@@ -21,6 +31,25 @@ const Sidebar: React.FC<SidebarProps> = ({
   setShowTrigger,
 }) => {
   const { pathname } = useLocation();
+  const currentUser = useAppSelector(selectCurrentUser);
+
+  let sidebarItems: MenuProps["items"];
+
+  switch (currentUser?.role) {
+    case USER_ROLE.superAdmin:
+    case USER_ROLE.admin:
+      sidebarItems = adminSidebarItems;
+      break;
+    case USER_ROLE.faculty:
+      sidebarItems = facultySidebarItems;
+      break;
+    case USER_ROLE.student:
+      sidebarItems = studentSidebarItems;
+      break;
+    default:
+      sidebarItems = [];
+  }
+
   return (
     <Sider
       breakpoint="lg"
@@ -54,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         theme="dark"
         mode="inline"
         defaultSelectedKeys={[pathname]}
-        items={items}
+        items={sidebarItems}
       />
     </Sider>
   );
