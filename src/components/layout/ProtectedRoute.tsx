@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-import { currentToken } from "../../app/features/auth/authSlice";
+import { selectCurrentToken } from "../../app/features/auth/authSlice";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const token = useAppSelector(currentToken);
+  const token = useAppSelector(selectCurrentToken);
 
   if (!token) return <Navigate to="/login" replace />;
 

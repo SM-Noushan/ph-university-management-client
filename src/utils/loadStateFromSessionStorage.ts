@@ -5,7 +5,7 @@ export function loadStateFromSessionStorage(): Partial<RootState> | undefined {
     const preloadedState: Partial<RootState> = {};
 
     const authFromStorage = sessionStorage.getItem("auth");
-    console.log(authFromStorage);
+    // console.log(authFromStorage);
     // If a given slice's state is in sessionStorage, parse and assign it
     if (authFromStorage) {
       preloadedState.auth = JSON.parse(authFromStorage);
