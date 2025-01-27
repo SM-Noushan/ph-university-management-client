@@ -30,7 +30,6 @@ export const PHInput = ({
   selectOptions,
 }: TInputProps) => {
   const inputProps = {
-    name,
     prefix,
     placeholder,
   };
@@ -50,7 +49,7 @@ export const PHInput = ({
               ) : type === "text" ? (
                 <Input {...field} {...inputProps} />
               ) : type === "select" ? (
-                <Select {...field} placeholder={placeholder}>
+                <Select {...field} {...inputProps}>
                   {selectOptions?.map((option) => (
                     <Option key={option.value} value={option.value}>
                       {option.label}

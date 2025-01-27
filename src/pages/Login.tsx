@@ -5,6 +5,7 @@ import { verifyToken } from "../utils";
 import { useAppDispatch } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
 import { PHForm, PHInput } from "../components/form";
+import ApiError from "../components/shared/ApiError";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { setUser, TUser } from "../app/features/auth/authSlice";
 import { useLoginMutation } from "../app/features/auth/authApi";
@@ -25,6 +26,7 @@ const Login: React.FC = () => {
       dispatch(setUser(userInfo));
       toast.success("Login successfully", { id: toastId });
       navigate(user.role === "student" ? "/" : `/${user.role}`);
+      return true;
     } catch (err) {
       toast.error("Login failed", { id: toastId });
     }
@@ -72,11 +74,7 @@ const Login: React.FC = () => {
           <Button block type="primary" htmlType="submit" disabled={isLoading}>
             Log in
           </Button>
-          {error && (
-            <Flex justify="center" style={{ color: "red", marginTop: "10px" }}>
-              {(error as { data: { message: string } })?.data.message}
-            </Flex>
-          )}
+          <ApiError error={error} />
         </PHForm>
       </Col>
     </Flex>

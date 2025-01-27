@@ -1,72 +1,118 @@
-import { Button, Col, Flex, Row } from "antd";
+import { toast } from "sonner";
+import {
+  monthOptions,
+  semesterCode,
+  semesterNameOptions,
+  yearOptions,
+} from "../../../../constants";
+import { Button, Col, Flex } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import ApiError from "../../../../components/shared/ApiError";
 import { PHForm, PHInput } from "../../../../components/form";
+import { BookOutlined, CalendarOutlined } from "@ant-design/icons";
+import { useCreateSemesterMutation } from "../../../../app/features/admin/academicManagement/academicSemester/academicSemesterApi";
 
-const semesterNameOptions = [
+const inputConfigs = [
   {
-    value: "Autumn",
-    label: "Autumn",
+    type: "select",
+    name: "name",
+    label: "Name",
+    placeholder: "Select semester",
+    validationRules: [
+      {
+        required: true,
+        message: "Please select semester name",
+      },
+    ],
+    selectOptions: semesterNameOptions,
+    prefix: <BookOutlined />,
   },
   {
-    value: "Summer",
-    label: "Summer",
+    type: "select",
+    name: "year",
+    label: "Year",
+    placeholder: "Select year",
+    validationRules: [
+      {
+        required: true,
+        message: "Please select a year",
+      },
+    ],
+    selectOptions: yearOptions,
+    prefix: <CalendarOutlined />,
   },
   {
-    value: "Fall",
-    label: "Fall",
+    type: "select",
+    name: "startMonth",
+    label: "Start Month",
+    placeholder: "Select start month",
+    validationRules: [
+      {
+        required: true,
+        message: "Please select a start month",
+      },
+    ],
+    selectOptions: monthOptions,
+    prefix: <CalendarOutlined />,
+  },
+  {
+    type: "select",
+    name: "endMonth",
+    label: "End Month",
+    placeholder: "Select end month",
+    validationRules: [
+      {
+        required: true,
+        message: "Please select a end month",
+      },
+    ],
+    selectOptions: monthOptions,
+    prefix: <CalendarOutlined />,
   },
 ];
 
-const semesterCode = {
-  Autumn: "01",
-  Summer: "02",
-  Fall: "03",
-};
-
 const CreateAcademicSemester = () => {
+  const [createSemester, { error, isLoading }] = useCreateSemesterMutation();
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const selectedSemester = data["name"] as keyof typeof semesterCode;
+    // console.log("Received values of form: ", semesterData);
+    const toastId = toast.loading("Creating semester...");
+    const { year, name, startMonth, endMonth } = data;
     const semesterData = {
-      name: selectedSemester,
-      code: semesterCode[selectedSemester],
+      name,
+      code: semesterCode[name as keyof typeof semesterCode],
+      year,
+      startMonth,
+      endMonth,
     };
-    console.log("Received values of form: ", semesterData);
+    try {
+      await createSemester(semesterData).unwrap();
+      toast.success("Academic semester created successfully", { id: toastId });
+      return true;
+    } catch (error) {
+      toast.error("Failed to create academic semester.", { id: toastId });
+    }
   };
   return (
-    <Flex  justify="center" style={{ height: "100%" }}>
+    <Flex align="center" justify="center" style={{ height: "100%" }}>
       <Col span={6}>
-        <PHForm
-          onSubmit={onSubmit}
-          // defaultValues={}
-        >
-          <PHInput
-            type="select"
-            name="name"
-            label="Semester Name"
-            placeholder="Select semester"
-            validationRules={[
-              {
-                required: true,
-                message: "Please select semester name",
-              },
-            ]}
-            selectOptions={semesterNameOptions}
-            // prefix={<UserOutlined />}
-          />
-          {/* <PHInput
-          type="text"
-          name="id"
-          label="User ID"
-          // prefix={<UserOutlined />}
-        /> */}
-          <Button block type="primary" htmlType="submit">
-            Submit
+        <PHForm onSubmit={onSubmit}>
+          {inputConfigs.map((config, index) => (
+            <PHInput
+              key={index}
+              type={config.type}
+              name={config.name}
+              label={config.label}
+              placeholder={config.placeholder}
+              validationRules={config.validationRules}
+              selectOptions={config.selectOptions}
+              prefix={config.prefix}
+            />
+          ))}
+          <Button block type="primary" htmlType="submit" loading={isLoading}>
+            Create Semester
           </Button>
-          {/* {error && (
-        <Flex justify="center" style={{ color: "red", marginTop: "10px" }}>
-          {(error as { data: { message: string } })?.data.message}
-        </Flex>
-      )} */}
+          <ApiError error={error} />
         </PHForm>
       </Col>
     </Flex>
