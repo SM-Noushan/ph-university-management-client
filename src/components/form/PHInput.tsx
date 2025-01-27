@@ -1,76 +1,86 @@
-import { Input } from "antd";
-import React, { useState } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+import React from "react";
+import { Form, Input, Select } from "antd";
+import { Controller } from "react-hook-form";
+
+type TSelectOptions = {
+  value: string;
+  label: string;
+  disabled?: boolean;
+};
 
 type TInputProps = {
   type: string;
   name: string;
   label?: string;
-  validationRules?: object;
+  placeholder?: string;
+  validationRules?: object[];
   prefix?: React.ReactNode;
+  selectOptions?: TSelectOptions[];
 };
+
+const { Option } = Select;
 
 export const PHInput = ({
   type,
   name,
   label,
+  placeholder,
   prefix,
   validationRules,
+  selectOptions,
 }: TInputProps) => {
-  const {
-    formState: { errors },
-  } = useFormContext();
-  const [isPasswordVisible, setPasswordVisible] = useState(false);
-
-  const isPasswordField = /password/i.test(name);
-
+  const inputProps = {
+    name,
+    prefix,
+    placeholder,
+  };
   return (
-    <div style={{ marginBottom: "20px" }}>
-      {label && (
-        <label
-          htmlFor={name}
-          style={{
-            color: errors[name] ? "red" : "black",
-            fontWeight: 600,
-          }}
-        >
-          {label}
-        </label>
-      )}
+    <div>
       <Controller
         name={name}
-        rules={validationRules}
         render={({ field }) => (
-          <Input
-            {...field}
-            type={isPasswordField ? (isPasswordVisible ? "text" : type) : type}
-            id={name}
-            status={errors[name] ? "error" : undefined}
-            prefix={prefix}
-            style={{ marginTop: "8px" }}
-            suffix={
-              isPasswordField &&
-              (isPasswordVisible ? (
-                <EyeInvisibleOutlined
-                  onClick={() => setPasswordVisible(false)}
-                  style={{ cursor: "pointer" }}
-                />
-              ) : (
-                <EyeOutlined
-                  onClick={() => setPasswordVisible(true)}
-                  style={{ cursor: "pointer" }}
-                />
-              ))
-            }
-          />
+          <>
+            <Form.Item
+              name={name}
+              rules={validationRules || [{}]}
+              label={label}
+            >
+              {type === "password" ? (
+                <Input.Password {...field} {...inputProps} />
+              ) : type === "text" ? (
+                <Input {...field} {...inputProps} />
+              ) : type === "select" ? (
+                <Select {...field} placeholder={placeholder}>
+                  {selectOptions?.map((option) => (
+                    <Option key={option.value} value={option.value}>
+                      {option.label}
+                    </Option>
+                  ))}
+                </Select>
+              ) : null}
+            </Form.Item>
+          </>
         )}
       />
-      {errors[name] && (
-        <p style={{ color: "red", fontSize: "12px", marginTop: "5px" }}>
-          {errors[name]?.message as string}
-        </p>
-      )}
     </div>
   );
 };
+
+{
+  /* <Form.Item
+name="gender"
+label="Gender"
+rules={[
+  {
+    required: true,
+    message: 'Please select gender!',
+  },
+]}
+>
+<Select placeholder="select your gender">
+  <Option value="male">Male</Option>
+  <Option value="female">Female</Option>
+  <Option value="other">Other</Option>
+</Select>
+</Form.Item> */
+}

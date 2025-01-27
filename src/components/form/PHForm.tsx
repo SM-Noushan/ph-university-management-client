@@ -1,4 +1,5 @@
 import React from "react";
+import { Form } from "antd";
 import {
   FieldValues,
   FormProvider,
@@ -22,7 +23,16 @@ export const PHForm = ({ onSubmit, children, defaultValues }: TFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+      <Form
+        initialValues={defaultValues || {}}
+        onFinish={methods.handleSubmit(onSubmit)}
+        layout="vertical"
+        variant={"filled"}
+        requiredMark={"optional"}
+        style={{ width: "100%" }}
+      >
+        {children}
+      </Form>
     </FormProvider>
   );
 };

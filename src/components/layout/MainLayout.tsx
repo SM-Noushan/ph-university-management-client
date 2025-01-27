@@ -43,10 +43,12 @@ const MainLayout: React.FC = () => {
             onClick={() => setCollapsed(!collapsed)}
             style={{
               display: showTrigger ? "block" : "none",
+              marginLeft: collapsed ? "0" : "10.5rem",
               fontSize: "16px",
               width: 32,
               height: 32,
               backgroundColor: "#001529",
+              zIndex: 99,
             }}
           />
           <Button variant="filled" ghost onClick={handleLogOut}>
@@ -58,13 +60,14 @@ const MainLayout: React.FC = () => {
           <div
             style={{
               padding: 24,
-              minHeight: "100%",
+              height: "100%",
+              overflowY: "auto",
             }}
           >
             <Outlet />
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
+        <Footer style={{ textAlign: "center", paddingTop: 0 }}>
           Copyright ©{new Date().getFullYear()} By SM Nowshan
         </Footer>
       </Layout>

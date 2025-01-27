@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "sonner";
-import { Button, Flex } from "antd";
+import { Button, Col, Flex } from "antd";
 import { verifyToken } from "../utils";
 import { useAppDispatch } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
@@ -31,40 +31,54 @@ const Login: React.FC = () => {
   };
   return (
     <Flex align="center" justify="center" style={{ height: "100vh" }}>
-      <PHForm
-        onSubmit={onSubmit}
-        defaultValues={{ id: "A-0001", password: "admin12" }}
-      >
-        <PHInput
-          type="text"
-          name="id"
-          label="User ID"
-          prefix={<UserOutlined />}
-          validationRules={{
-            required: "Username is required",
-            minLength: { value: 4, message: "Must be at least 4 characters" },
-          }}
-        />
-        <PHInput
-          type="password"
-          name="password"
-          label="Password"
-          prefix={<LockOutlined />}
-          validationRules={{
-            required: "Password is required",
-            minLength: { value: 6, message: "Must be at least 6 characters" },
-          }}
-        />
+      <Col span={4}>
+        <PHForm
+          onSubmit={onSubmit}
+          defaultValues={{ id: "A-0001", password: "admin12" }}
+        >
+          <PHInput
+            type="text"
+            name="id"
+            label="User ID"
+            prefix={<UserOutlined />}
+            validationRules={[
+              {
+                required: true,
+                message: "UserID is required",
+              },
+              {
+                min: 4,
+                message: "Must be at least 4 characters",
+              },
+            ]}
+          />
+          <PHInput
+            type="password"
+            name="password"
+            label="Password"
+            prefix={<LockOutlined />}
+            validationRules={[
+              {
+                required: true,
+                message: "Password is required",
+              },
+              {
+                min: 6,
+                message: "Must be at least 6 characters",
+              },
+            ]}
+          />
 
-        <Button block type="primary" htmlType="submit" disabled={isLoading}>
-          Log in
-        </Button>
-        {error && (
-          <Flex justify="center" style={{ color: "red", marginTop: "10px" }}>
-            {(error as { data: { message: string } })?.data.message}
-          </Flex>
-        )}
-      </PHForm>
+          <Button block type="primary" htmlType="submit" disabled={isLoading}>
+            Log in
+          </Button>
+          {error && (
+            <Flex justify="center" style={{ color: "red", marginTop: "10px" }}>
+              {(error as { data: { message: string } })?.data.message}
+            </Flex>
+          )}
+        </PHForm>
+      </Col>
     </Flex>
   );
 };

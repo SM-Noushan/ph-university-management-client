@@ -58,7 +58,13 @@ const Sidebar: React.FC<SidebarProps> = ({
         setCollapsed(collapsed);
       }}
       zeroWidthTriggerStyle={{ top: "64px", position: "absolute", zIndex: 1 }}
-      style={{ overflowY: "auto", scrollbarWidth: "none" }}
+      style={{
+        overflowY: "auto",
+        scrollbarWidth: "none",
+        position: showTrigger ? "absolute" : "initial",
+        height: "100vh",
+        zIndex: 1,
+      }}
     >
       <h1
         style={{
