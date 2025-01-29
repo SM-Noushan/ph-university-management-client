@@ -10,7 +10,7 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import ApiError from "../../../../components/shared/ApiError";
 import { PHForm, PHInput } from "../../../../components/form";
 import { BookOutlined, CalendarOutlined } from "@ant-design/icons";
-import { useCreateSemesterMutation } from "../../../../app/features/admin/academicManagement/academicSemester/academicSemesterApi";
+import { useCreateSemesterMutation } from "../../../../app/features/admin/academicManagement/academicSemesterApi";
 
 const inputConfigs = [
   {

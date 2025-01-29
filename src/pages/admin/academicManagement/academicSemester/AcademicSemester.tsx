@@ -8,7 +8,7 @@ import { TQueryParam } from "../../../../types/Global.Types";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { TTableData } from "../../../../types/admin/academicManagement";
-import { useGetAllSemesterQuery } from "../../../../app/features/admin/academicManagement/academicSemester/academicSemesterApi";
+import { useGetAllSemesterQuery } from "../../../../app/features/admin/academicManagement/academicSemesterApi";
 
 function AcademicSemester() {
   const [params, setParams] = React.useState<TQueryParam[]>([]);

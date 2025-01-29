@@ -1,7 +1,7 @@
-import { baseApi } from "../../../../api/baseApi";
-import { TQueryParam, TResponseRedux } from "../../../../../types/Global.Types";
-import { TAcademicSemester } from "../../../../../types/admin/academicManagement";
-import { AcademicSemesterBaseApi } from "../../../../../constants/api/admin/academicManagement";
+import { baseApi } from "../../../api/baseApi";
+import { TQueryParam, TResponseRedux } from "../../../../types/Global.Types";
+import { TAcademicSemester } from "../../../../types/admin/academicManagement";
+import { AcademicSemesterBaseApi } from "../../../../constants/api/admin/academicManagement";
 
 const academicSemesterApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
