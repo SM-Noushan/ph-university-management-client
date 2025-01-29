@@ -5,3 +5,5 @@ export type TAcademicFaculty = {
   updatedAt: string;
   __v: number;
 };
+
+export type TAcademicFacultyTableData = Pick<TAcademicFaculty, "name">;

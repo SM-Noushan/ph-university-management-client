@@ -10,7 +10,7 @@ export type TAcademicSemester = {
   __v: number;
 };
 
-export type TTableData = Pick<
+export type TAcademicSemesterTableData = Pick<
   TAcademicSemester,
   "name" | "year" | "startMonth" | "endMonth"
 >;

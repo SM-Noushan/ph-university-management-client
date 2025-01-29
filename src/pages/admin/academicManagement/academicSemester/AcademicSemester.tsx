@@ -7,7 +7,7 @@ import {
 import { TQueryParam } from "../../../../types/Global.Types";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Table, TableColumnsType, TableProps } from "antd";
-import { TTableData } from "../../../../types/admin/academicManagement";
+import { TAcademicSemesterTableData } from "../../../../types/admin/academicManagement";
 import { useGetAllSemesterQuery } from "../../../../app/features/admin/academicManagement/academicSemesterApi";
 
 function AcademicSemester() {
@@ -26,7 +26,7 @@ function AcademicSemester() {
     })
   );
 
-  const columns: TableColumnsType<TTableData> = [
+  const columns: TableColumnsType<TAcademicSemesterTableData> = [
     {
       title: "Name",
       key: "name",
@@ -73,7 +73,7 @@ function AcademicSemester() {
     },
   ];
 
-  const onChange: TableProps<TTableData>["onChange"] = (
+  const onChange: TableProps<TAcademicSemesterTableData>["onChange"] = (
     _pagination,
     filters,
     _sorter,
