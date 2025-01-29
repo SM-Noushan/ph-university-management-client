@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { FileTextOutlined } from "@ant-design/icons";
+import { AuditOutlined } from "@ant-design/icons";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { PHForm, PHInput } from "../../../../components/form";
 import PHFormWrapperLayout from "../../../../components/form/PHFormWrapperLayout";
@@ -39,7 +39,7 @@ const CreateAcademicFaculty = () => {
               message: "Please input academic faculty name!",
             },
           ]}
-          prefix={<FileTextOutlined />}
+          prefix={<AuditOutlined />}
         />
       </PHForm>
     </PHFormWrapperLayout>

@@ -1,11 +1,11 @@
 import { Button, Table, TableColumnsType } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { TAcademicFacultyTableData } from "../../../../types/admin/academicManagement";
-import { useGetAllFacultyQuery } from "../../../../app/features/admin/academicManagement/academicFaculty";
+import { useGetAllAcademicFacultyQuery } from "../../../../app/features/admin/academicManagement/academicFaculty";
 
 function AcademicSemester() {
   const { data: academicFaculty, isFetching } =
-    useGetAllFacultyQuery(undefined);
+    useGetAllAcademicFacultyQuery(undefined);
 
   const tableData = academicFaculty?.data?.map(({ _id, name }) => ({
     key: _id,

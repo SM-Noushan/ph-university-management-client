@@ -16,6 +16,7 @@ type TInputProps = {
   validationRules?: object[];
   prefix?: React.ReactNode;
   selectOptions?: TSelectOptions[];
+  selectLoading?: boolean;
 };
 
 const { Option } = Select;
@@ -28,6 +29,7 @@ export const PHInput = ({
   prefix,
   validationRules,
   selectOptions,
+  selectLoading = false,
 }: TInputProps) => {
   const inputProps = {
     prefix,
@@ -49,7 +51,7 @@ export const PHInput = ({
               ) : type === "text" ? (
                 <Input {...field} {...inputProps} />
               ) : type === "select" ? (
-                <Select {...field} {...inputProps}>
+                <Select {...field} {...inputProps} loading={selectLoading}>
                   {selectOptions?.map((option) => (
                     <Option key={option.value} value={option.value}>
                       {option.label}

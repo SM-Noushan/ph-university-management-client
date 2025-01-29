@@ -5,7 +5,7 @@ import { AcademicFacultyBaseApi } from "../../../../constants/api/admin/academic
 
 const academicFacultyApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllFaculty: builder.query({
+    getAllAcademicFaculty: builder.query({
       query: () => ({
         url: AcademicFacultyBaseApi,
         method: "GET",
@@ -13,7 +13,6 @@ const academicFacultyApi = baseApi.injectEndpoints({
       transformResponse: (response: TResponseRedux<TAcademicFaculty[]>) => {
         return {
           data: response.data,
-          meta: response.meta,
         };
       },
     }),
@@ -27,5 +26,7 @@ const academicFacultyApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllFacultyQuery, useCreateAcademicFacultyMutation } =
-  academicFacultyApi;
+export const {
+  useGetAllAcademicFacultyQuery,
+  useCreateAcademicFacultyMutation,
+} = academicFacultyApi;
