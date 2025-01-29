@@ -1,9 +1,7 @@
+import { TCommonResponseData } from "./../../Global.Types";
+
 export type TAcademicFaculty = {
-  _id: string;
   name: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-};
+} & TCommonResponseData;
 
 export type TAcademicFacultyTableData = Pick<TAcademicFaculty, "name">;

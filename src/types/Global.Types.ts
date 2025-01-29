@@ -9,6 +9,13 @@ export type TMeta = {
   totalPage: number;
 };
 
+export type TCommonResponseData = {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
 export type TCustomError = {
   data: {
     message: string;
