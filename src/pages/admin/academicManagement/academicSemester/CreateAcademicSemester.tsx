@@ -5,11 +5,10 @@ import {
   semesterNameOptions,
   yearOptions,
 } from "../../../../constants";
-import { Button, Col, Flex } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import ApiError from "../../../../components/shared/ApiError";
 import { PHForm, PHInput } from "../../../../components/form";
-import { BookOutlined, CalendarOutlined } from "@ant-design/icons";
+import { AuditOutlined, CalendarOutlined } from "@ant-design/icons";
+import PHFormWrapperLayout from "../../../../components/form/PHFormWrapperLayout";
 import { useCreateSemesterMutation } from "../../../../app/features/admin/academicManagement/academicSemesterApi";
 
 const inputConfigs = [
@@ -25,7 +24,7 @@ const inputConfigs = [
       },
     ],
     selectOptions: semesterNameOptions,
-    prefix: <BookOutlined />,
+    prefix: <AuditOutlined />,
   },
   {
     type: "select",
@@ -94,28 +93,27 @@ const CreateAcademicSemester = () => {
     }
   };
   return (
-    <Flex align="center" justify="center" style={{ height: "100%" }}>
-      <Col span={6}>
-        <PHForm onSubmit={onSubmit}>
-          {inputConfigs.map((config, index) => (
-            <PHInput
-              key={index}
-              type={config.type}
-              name={config.name}
-              label={config.label}
-              placeholder={config.placeholder}
-              validationRules={config.validationRules}
-              selectOptions={config.selectOptions}
-              prefix={config.prefix}
-            />
-          ))}
-          <Button block type="primary" htmlType="submit" loading={isLoading}>
-            Create Semester
-          </Button>
-          <ApiError error={error} />
-        </PHForm>
-      </Col>
-    </Flex>
+    <PHFormWrapperLayout>
+      <PHForm
+        onSubmit={onSubmit}
+        error={error}
+        submitLabel="  Create Semester"
+        isLoading={isLoading}
+      >
+        {inputConfigs.map((config, index) => (
+          <PHInput
+            key={index}
+            type={config.type}
+            name={config.name}
+            label={config.label}
+            placeholder={config.placeholder}
+            validationRules={config.validationRules}
+            selectOptions={config.selectOptions}
+            prefix={config.prefix}
+          />
+        ))}
+      </PHForm>
+    </PHFormWrapperLayout>
   );
 };
 

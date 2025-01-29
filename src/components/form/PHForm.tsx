@@ -1,11 +1,13 @@
 import React from "react";
-import { Form } from "antd";
+import { Button, Form } from "antd";
 import {
   FieldValues,
   FormProvider,
   SubmitErrorHandler,
   useForm,
 } from "react-hook-form";
+import ApiError from "../shared/ApiError";
+import { TResponseError } from "../../types/Global.Types";
 
 type TFormConfig = {
   defaultValues?: Record<string, any>;
@@ -14,9 +16,21 @@ type TFormConfig = {
 type TFormProps = {
   onSubmit: SubmitErrorHandler<FieldValues>;
   children: React.ReactNode;
-} & TFormConfig;
+  submitLabel?: string;
+  isLoading?: boolean;
+  showErrorBelowSubmitBtn?: boolean;
+} & TFormConfig &
+  TResponseError;
 
-export const PHForm = ({ onSubmit, children, defaultValues }: TFormProps) => {
+export const PHForm = ({
+  onSubmit,
+  children,
+  defaultValues,
+  submitLabel = "Submit",
+  isLoading = false,
+  error,
+  showErrorBelowSubmitBtn = false,
+}: TFormProps) => {
   const [form] = Form.useForm();
   const formConfig: TFormConfig = {};
   if (defaultValues) formConfig["defaultValues"] = defaultValues;
@@ -39,6 +53,11 @@ export const PHForm = ({ onSubmit, children, defaultValues }: TFormProps) => {
         style={{ width: "100%" }}
       >
         {children}
+        {!showErrorBelowSubmitBtn && <ApiError error={error} />}
+        <Button block type="primary" htmlType="submit" loading={isLoading}>
+          {submitLabel}
+        </Button>
+        {showErrorBelowSubmitBtn && <ApiError error={error} />}
       </Form>
     </FormProvider>
   );

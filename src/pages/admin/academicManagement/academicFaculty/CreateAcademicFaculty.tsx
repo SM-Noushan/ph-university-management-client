@@ -1,9 +1,8 @@
 import { toast } from "sonner";
-import { Button, Col, Flex } from "antd";
 import { FileTextOutlined } from "@ant-design/icons";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import ApiError from "../../../../components/shared/ApiError";
 import { PHForm, PHInput } from "../../../../components/form";
+import PHFormWrapperLayout from "../../../../components/form/PHFormWrapperLayout";
 import { useCreateAcademicFacultyMutation } from "../../../../app/features/admin/academicManagement/academicFaculty";
 
 const CreateAcademicFaculty = () => {
@@ -22,29 +21,28 @@ const CreateAcademicFaculty = () => {
     }
   };
   return (
-    <Flex align="center" justify="center" style={{ height: "100%" }}>
-      <Col span={6}>
-        <PHForm onSubmit={onSubmit}>
-          <PHInput
-            type={"text"}
-            name={"name"}
-            label={"Name"}
-            placeholder={"Enter academic faculty name"}
-            validationRules={[
-              {
-                required: true,
-                message: "Please input academic faculty name!",
-              },
-            ]}
-            prefix={<FileTextOutlined />}
-          />
-          <Button block type="primary" htmlType="submit" loading={isLoading}>
-            Create Academic Faculty
-          </Button>
-          <ApiError error={error} />
-        </PHForm>
-      </Col>
-    </Flex>
+    <PHFormWrapperLayout>
+      <PHForm
+        onSubmit={onSubmit}
+        submitLabel="Create Academic Faculty"
+        isLoading={isLoading}
+        error={error}
+      >
+        <PHInput
+          type={"text"}
+          name={"name"}
+          label={"Name"}
+          placeholder={"Enter academic faculty name"}
+          validationRules={[
+            {
+              required: true,
+              message: "Please input academic faculty name!",
+            },
+          ]}
+          prefix={<FileTextOutlined />}
+        />
+      </PHForm>
+    </PHFormWrapperLayout>
   );
 };
 

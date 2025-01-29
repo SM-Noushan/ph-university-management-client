@@ -5,7 +5,7 @@ import {
   AdminProtectedRoute,
   FacultyProtectedRoute,
   StudentProtectedRoute,
-} from "../components/layout/ProtectedByRole";
+} from "../components/ProtectedByRole";
 
 // Function to wrap the route element based on the role
 const wrapWithRoleBasedRoute = (

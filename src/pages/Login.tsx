@@ -1,14 +1,13 @@
 import React from "react";
 import { toast } from "sonner";
-import { Button, Col, Flex } from "antd";
 import { verifyToken } from "../utils";
 import { useAppDispatch } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
 import { PHForm, PHInput } from "../components/form";
-import ApiError from "../components/shared/ApiError";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { setUser, TUser } from "../app/features/auth/authSlice";
 import { useLoginMutation } from "../app/features/auth/authApi";
+import PHFormWrapperLayout from "../components/form/PHFormWrapperLayout";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -32,52 +31,49 @@ const Login: React.FC = () => {
     }
   };
   return (
-    <Flex align="center" justify="center" style={{ height: "100vh" }}>
-      <Col span={4}>
-        <PHForm
-          onSubmit={onSubmit}
-          defaultValues={{ id: "A-0001", password: "admin12" }}
-        >
-          <PHInput
-            type="text"
-            name="id"
-            label="User ID"
-            prefix={<UserOutlined />}
-            validationRules={[
-              {
-                required: true,
-                message: "UserID is required",
-              },
-              {
-                min: 4,
-                message: "Must be at least 4 characters",
-              },
-            ]}
-          />
-          <PHInput
-            type="password"
-            name="password"
-            label="Password"
-            prefix={<LockOutlined />}
-            validationRules={[
-              {
-                required: true,
-                message: "Password is required",
-              },
-              {
-                min: 6,
-                message: "Must be at least 6 characters",
-              },
-            ]}
-          />
-
-          <Button block type="primary" htmlType="submit" disabled={isLoading}>
-            Log in
-          </Button>
-          <ApiError error={error} />
-        </PHForm>
-      </Col>
-    </Flex>
+    <PHFormWrapperLayout style={{ height: "100vh" }}>
+      <PHForm
+        onSubmit={onSubmit}
+        defaultValues={{ id: "A-0001", password: "admin12" }}
+        submitLabel="Log in"
+        error={error}
+        isLoading={isLoading}
+        showErrorBelowSubmitBtn={true}
+      >
+        <PHInput
+          type="text"
+          name="id"
+          label="User ID"
+          prefix={<UserOutlined />}
+          validationRules={[
+            {
+              required: true,
+              message: "UserID is required",
+            },
+            {
+              min: 4,
+              message: "Must be at least 4 characters",
+            },
+          ]}
+        />
+        <PHInput
+          type="password"
+          name="password"
+          label="Password"
+          prefix={<LockOutlined />}
+          validationRules={[
+            {
+              required: true,
+              message: "Password is required",
+            },
+            {
+              min: 6,
+              message: "Must be at least 6 characters",
+            },
+          ]}
+        />
+      </PHForm>
+    </PHFormWrapperLayout>
   );
 };
 

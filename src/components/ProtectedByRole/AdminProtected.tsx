@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
-import { USER_ROLE } from "../../../constants";
-import { useAppSelector } from "../../../app/hooks";
-import { selectCurrentUser } from "../../../app/features/auth/authSlice";
+import { USER_ROLE } from "../../constants";
+import { useAppSelector } from "../../app/hooks";
+import { selectCurrentUser } from "../../app/features/auth/authSlice";
 
 export const AdminProtectedRoute = ({
   children,
